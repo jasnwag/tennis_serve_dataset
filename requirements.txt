@@ -1,0 +1,8 @@
+numpy
+pandas
+scipy
+matplotlib
+scikit-learn
+tqdm
+pytube
+yt-dlp
