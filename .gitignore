@@ -1,10 +1,13 @@
-# Data directories
-data/
-data/initial/
+# Tennis Serve Analysis Dataset .gitignore
+
+# Large data files (exclude original JSON files but keep main CSV)
+data/full/all_jsons/
+data/full/restructured_jsons/
 data/scorebug/
-data/scorebug_test/
-data/USTA/
-data/visualizations/
+data/initial/
+
+# Keep the main cleaned dataset
+!data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
 
 # Python
 __pycache__/
@@ -67,31 +70,23 @@ logs/
 temp/
 tmp/
 
-# Large files
+# Large media files
 *.mp4
 *.avi
 *.mov
 *.mkv
-*.npy
-*.npz
-*.pkl
-*.pickle
 
 # Model files
 *.h5
 *.hdf5
-*.pth
-*.pt
-*.ckpt
+*.pkl
+*.pickle
 
 # API keys and secrets
 config.json
 secrets.json
 *.key
-*.pem
 
-# Output directories
-output/
-results/
-saved_models/
-checkpoints/ 
+# Data processing artifacts
+*.npy
+*.npz 
