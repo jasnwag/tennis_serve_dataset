@@ -1,0 +1,92 @@
+# Tennis Serve Analysis Dataset .gitignore
+
+# Large data files (exclude original JSON files but keep main CSV)
+data/full/all_jsons/
+data/full/restructured_jsons/
+data/scorebug/
+data/initial/
+
+# Keep the main cleaned dataset
+!data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Model files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# API keys and secrets
+config.json
+secrets.json
+*.key
+
+# Data processing artifacts
+*.npy
+*.npz 
