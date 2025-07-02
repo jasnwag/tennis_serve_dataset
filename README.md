@@ -1,5 +1,7 @@
 # Tennis Serve Analysis Dataset
 
+![Tennis Serve Analysis Demo](bounding_grid_8x3.gif)
+
 A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
 
 ## 📊 Dataset Overview
