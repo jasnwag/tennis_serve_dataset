@@ -89,4 +89,4 @@ secrets.json
 
 # Data processing artifacts
 *.npy
-*.npz 
+*.npz data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
