@@ -93,19 +93,22 @@ print(f"Keypoints shape: {np.array(keypoints).shape}")
 
 #### Installation
 ```bash
-# Install toolkit dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# Install as package (for development)
-pip install -e .
+# Setup and verify dataset
+python setup_dataset.py
 ```
 
 #### Basic Usage
 ```python
-# Import analysis modules
-from src.coaching import calculate_angles
-from src.gender import gender_classification
-from src.logistics import merge_data
+# Import analysis modules from the code directory
+import sys
+sys.path.append('code/src')
+
+from coaching import calculate_angles
+from gender import gender_classification
+from logistics import merge_data
 
 # Calculate joint angles
 angles = calculate_angles(keypoints_data)
@@ -119,35 +122,35 @@ processed_data = merge_data(raw_data, metadata)
 
 ## 🔧 Analysis Toolkit Modules
 
-### 🎯 Coaching Analysis (`src/coaching/`)
+### 🎯 Coaching Analysis (`code/src/coaching/`)
 - **Angle Calculations**: Compute joint angles throughout serve motion
 - **3D Visualization**: Generate 3D plots and animations
 - **Biomechanical Analysis**: Analyze serve mechanics and form
 - **Performance Metrics**: Calculate serve efficiency and consistency
 
-### 👥 Gender Classification (`src/gender/`)
+### 👥 Gender Classification (`code/src/gender/`)
 - **Machine Learning Models**: Gender classification from serve motion
 - **Feature Engineering**: Extract relevant features from 3D keypoints
 - **Comparative Analysis**: Compare male vs female serve characteristics
 - **Visualization**: Plot gender-specific serve patterns
 
-### 📊 Data Processing (`src/json_investigation/`)
+### 📊 Data Processing (`code/src/json_investigation/`)
 - **JSON Restructuring**: Clean and format keypoint data
 - **Data Integration**: Merge multiple data sources
 - **Quality Control**: Validate and verify data integrity
 - **Metadata Addition**: Add server information and match details
 
-### 🔧 Logistics (`src/logistics/`)
+### 🔧 Logistics (`code/src/logistics/`)
 - **Data Integration**: Merge different data sources
 - **Sequence Timing**: Analyze serve timing patterns
 - **Data Validation**: Ensure data quality and consistency
 
-### 🎾 Server Analysis (`src/server/`)
+### 🎾 Server Analysis (`code/src/server/`)
 - **Player Comparison**: Compare different players' serve styles
 - **Unsupervised Analysis**: Discover serve patterns and clusters
 - **Performance Metrics**: Analyze serve effectiveness
 
-### ⚡ Speed Analysis (`src/speed/`)
+### ⚡ Speed Analysis (`code/src/speed/`)
 - **Serve Speed Calculation**: Compute serve velocities
 - **Speed Pattern Analysis**: Analyze speed variations
 - **Performance Correlation**: Correlate speed with other metrics
@@ -196,12 +199,6 @@ Advanced analysis tools in `code/openai/`:
 
 ## 📋 Requirements
 
-### Dataset Requirements
-```bash
-pip install -r requirements_dataset.txt
-```
-
-### Toolkit Requirements
 ```bash
 pip install -r requirements.txt
 ```
@@ -214,14 +211,11 @@ pip install -r requirements.txt
 git clone https://github.com/yourusername/tennis-serve-analysis.git
 cd tennis-serve-analysis
 
-# Install dataset dependencies
-pip install -r requirements_dataset.txt
-
-# Install toolkit dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# Install as development package
-pip install -e .
+# Setup and verify dataset
+python setup_dataset.py
 ```
 
 ### Running Analysis
@@ -230,7 +224,8 @@ pip install -e .
 python setup_dataset.py
 
 # Run example analysis
-python -m src.coaching.calculate_angles
+cd code/src
+python -m coaching.calculate_angles
 ```
 
 ## 🤝 Contributing
