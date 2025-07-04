@@ -1,16 +1,26 @@
+# Tennis Serve Analysis Dataset Requirements
+# Core data science packages
+pandas>=1.5.0
 numpy>=1.21.0
-pandas>=1.3.0
-scikit-learn>=1.0.0
 matplotlib>=3.5.0
-scipy>=1.7.0
-tqdm>=4.62.0
-pytube>=12.0.0
-yt-dlp>=2023.1.0
 seaborn>=0.11.0
-plotly>=5.0.0
+
+# Machine learning
+scikit-learn>=1.1.0
+
+# Jupyter for notebooks
 jupyter>=1.0.0
-ipywidgets>=7.6.0
-requests>=2.25.0
-Pillow>=8.3.0
-opencv-python>=4.5.0
-openai>=1.0.0
+ipykernel>=6.0.0
+
+# 3D visualization
+plotly>=5.0.0
+
+# Data processing
+tqdm>=4.64.0
+
+# Optional: Advanced analysis
+# Uncomment if needed for advanced analysis
+# opencv-python>=4.6.0
+# mediapipe>=0.8.0
+# torch>=1.12.0
+# tensorflow>=2.10.0 
