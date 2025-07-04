@@ -1,19 +1,14 @@
-# Tennis Serve Analysis Dataset .gitignore
+# Tennis Analysis Toolkit .gitignore
 
-# Large data files (exclude original JSON files but keep main CSV)
-data/full/all_jsons/
-data/full/restructured_jsons/
-data/scorebug/
-data/initial/
-
-# Keep the main cleaned dataset
-!data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
-
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# C extensions
 *.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -32,10 +27,66 @@ wheels/
 *.egg
 MANIFEST
 
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Environment variables
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
 .env
 .venv
 env/
@@ -44,31 +95,63 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Data files (exclude from repo)
+*.csv
+*.json
+*.pkl
+*.h5
+*.hdf5
+*.npz
+*.npy
+
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# OS files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Logs
-*.log
-logs/
+# OpenAI API keys
+.openai_key
+api_key.txt
+config.json
+secrets.json
+*.key
+
+# Large data directories
+data/
+datasets/
+models/
+checkpoints/
+results/
+outputs/
 
 # Temporary files
-*.tmp
-*.temp
-temp/
 tmp/
+temp/
+*.tmp
 
 # Large media files
 *.mp4
@@ -77,16 +160,7 @@ tmp/
 *.mkv
 
 # Model files
-*.h5
-*.hdf5
-*.pkl
 *.pickle
 
-# API keys and secrets
-config.json
-secrets.json
-*.key
-
-# Data processing artifacts
-*.npy
-*.npz data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
+# Logs
+logs/
