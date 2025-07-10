@@ -1,180 +1,142 @@
-# Tennis Serve Analysis: Dataset & Toolkit
+# Tennis Serve Analysis Dataset
 
-![Tennis Serve Analysis Demo](bounding_grid_8x3.gif)
+A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
 
-A comprehensive repository containing both a tennis serve dataset from the 2024 US Open and a complete Python toolkit for analyzing tennis serves using 3D keypoint tracking, biomechanical analysis, and machine learning techniques.
+## 🎾 Dataset Overview
 
-## 🎾 Overview
+This dataset contains **6,694 tennis serves** from the 2024 US Open tournament, featuring:
 
-This repository provides:
-- **📊 Complete Dataset**: 6,694 tennis serves with 3D keypoint tracking data
-- **🔧 Analysis Toolkit**: Python codebase for biomechanical analysis, gender classification, and data processing
-- **📓 Jupyter Notebooks**: Ready-to-use analysis examples and exploratory data analysis
-- **🤖 OpenAI Integration**: Advanced analysis tools using OpenAI APIs
+- **3D Keypoint Tracking**: 17 joints per frame with full body motion capture
+- **Player Demographics**: 118 unique players (60 male, 58 female)
+- **Serve Analytics**: Speed, direction, outcome, and match context
+- **High-Quality Data**: Professional tournament footage with expert annotation
+
+## 📊 Quick Stats
+
+- **Total Serves**: 6,694
+- **Unique Players**: 118 (60 male, 58 female)
+- **Matches**: 118 different tennis matches
+- **Frame Range**: 60-120 frames per serve (mean: 81.2 frames)
+- **Data Format**: CSV with embedded JSON keypoint arrays
+- **Dataset Size**: ~1.3GB
 
 ## 🗂️ Repository Structure
 
 ```
-tennis/
-├── 📊 DATA & DOCUMENTATION
-│   ├── data/                                    # Complete tennis serve dataset
-│   │   ├── full/                                # Main dataset files
-│   │   │   ├── all_jsons/                       # Original keypoint JSON files (10,727 files)
-│   │   │   ├── restructured_jsons/              # Clean keypoint format (10,727 files)
-│   │   │   └── usopen_points_clean_keypoints_cleaned_with_server_gender.csv
-│   │   ├── scorebug/                            # Scorebug detection data
-│   │   └── initial/                             # Initial processing data
-│   ├── documentation/                           # Dataset documentation
-│   │   ├── data_dictionary.md                   # Column descriptions
-│   │   ├── keypoint_mapping.md                  # 17 joint definitions
-│   │   └── analysis_examples.md                 # Usage examples
-│   ├── DATASET_README.md                        # Dataset-specific documentation
-│   ├── setup_dataset.py                         # Dataset setup script
-│   └── requirements_dataset.txt                 # Dataset-specific dependencies
-├── 🔧 ANALYSIS TOOLKIT
-│   ├── code/                                    # Legacy code structure
-│   │   ├── src/                                 # Core analysis modules
-│   │   ├── notebooks/                           # Jupyter notebooks for analysis
-│   │   └── openai/                              # OpenAI API integration
-│   ├── src/                                     # Main analysis modules
-│   │   ├── coaching/                            # Biomechanical analysis
-│   │   ├── gender/                              # Gender classification
-│   │   ├── json_investigation/                  # Data processing
-│   │   ├── logistics/                           # Data integration
-│   │   ├── server/                              # Server analysis
-│   │   └── speed/                               # Speed analysis
-│   ├── requirements.txt                         # Python dependencies
-│   ├── setup.py                                 # Package installation
-│   └── __init__.py                              # Package initialization
-├── 📋 PROJECT FILES
-│   ├── README.md                                # This file
-│   ├── LICENSE                                  # MIT License
-│   ├── .gitignore                               # Git ignore rules
-│   └── GITHUB_SETUP.md                          # GitHub setup instructions
+tennis_serve_dataset/
+├── data/
+│   ├── raw/                    # Original data files
+│   ├── processed/              # Cleaned and processed data
+│   ├── models/                 # Pre-trained models (if any)
+│   └── outputs/                # Analysis outputs and visualizations
+├── documentation/
+│   ├── data_dictionary.md      # Complete column descriptions
+│   ├── keypoint_mapping.md     # 17 joint definitions and mapping
+│   └── analysis_examples.md    # Usage examples and sample code
+├── DATASET_README.md           # Detailed dataset documentation
+├── LICENSE                     # MIT License
+└── README.md                   # This file
 ```
 
-## 📊 Dataset Overview
+## 🚀 Getting Started
 
-- **Total Serves**: 6,694 serves
-- **Players**: 118 unique players (60 male, 58 female)
-- **Matches**: 118 different tennis matches
-- **Data Sources**: US Open 2024 tournament
-- **Keypoint Tracking**: 17 joints per frame, 3D coordinates (x, y, z)
-- **Frame Range**: 60-120 frames per serve (mean: 81.2 frames)
+### Download the Dataset
 
-### Key Features
-- **Player Information**: Server name, gender, match details
-- **Serve Metrics**: Speed, direction, outcome
-- **3D Keypoint Tracking**: 17 joints with confidence scores
-- **Match Context**: Tournament round, court, date
+The main dataset file is located at:
+```
+data/processed/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
+```
 
-## 🚀 Quick Start
+### Quick Start Example
 
-### Using the Dataset
 ```python
 import pandas as pd
 import numpy as np
+import json
 
-# Load the main dataset
-df = pd.read_csv('data/full/usopen_points_clean_keypoints_cleaned_with_server_gender.csv')
+# Load the dataset
+df = pd.read_csv('data/processed/usopen_points_clean_keypoints_cleaned_with_server_gender.csv')
 
 # Basic statistics
 print(f"Total serves: {len(df)}")
 print(f"Unique players: {df['server_name'].nunique()}")
 print(f"Gender distribution:\n{df['server_gender'].value_counts()}")
 
-# Load keypoints for a specific serve
-import json
+# Load keypoints for analysis
 keypoints = json.loads(df.iloc[0]['keypoints_clean'])
 print(f"Keypoints shape: {np.array(keypoints).shape}")
+# Output: (n_frames, 17, 3) - frames × joints × coordinates
 ```
 
-### Using the Analysis Toolkit
+## 📈 Key Features
 
-#### Installation
-```bash
-# Install dependencies
-pip install -r requirements.txt
+### 🎯 Serve Data
+- **Player Information**: Server name, gender, match details
+- **Serve Metrics**: Speed, direction, outcome
+- **Match Context**: Tournament round, court, date
+- **Point Details**: Score, game state, rally length
 
-# Setup and verify dataset
-python setup_dataset.py
-```
+### 🦴 3D Keypoint Tracking
+- **17 Joints**: Full body tracking including arms, legs, torso
+- **3D Coordinates**: X, Y, Z positions for each joint
+- **Confidence Scores**: Reliability metrics for each keypoint
+- **Frame-by-Frame**: Complete serve motion capture
 
-#### Basic Usage
-```python
-# Import analysis modules from the code directory
-import sys
-sys.path.append('code/src')
+### 👥 Player Demographics
+- **Gender Distribution**: 54.7% Male, 45.3% Female
+- **Player Diversity**: 118 unique players
+- **Top Players**: Sinner (224 serves), Tiafoe (221 serves), Sabalenka (194 serves)
 
-from coaching import calculate_angles
-from gender import gender_classification
-from logistics import merge_data
+## 🔬 Research Applications
 
-# Calculate joint angles
-angles = calculate_angles(keypoints_data)
+### Biomechanics
+- Serve motion analysis and optimization
+- Joint angle calculations and biomechanical modeling
+- Performance comparison across players and genders
 
-# Perform gender classification
-gender_pred = gender_classification(serve_features)
+### Machine Learning
+- Gender classification from motion patterns
+- Serve outcome prediction
+- Player identification and verification
+- Motion synthesis and generation
 
-# Process and integrate data
-processed_data = merge_data(raw_data, metadata)
-```
+### Sports Analytics
+- Serve effectiveness analysis
+- Player comparison studies
+- Performance benchmarking and ranking
 
-## 🔧 Analysis Toolkit Modules
+## 📋 Data Dictionary
 
-### 🎯 Coaching Analysis (`code/src/coaching/`)
-- **Angle Calculations**: Compute joint angles throughout serve motion
-- **3D Visualization**: Generate 3D plots and animations
-- **Biomechanical Analysis**: Analyze serve mechanics and form
-- **Performance Metrics**: Calculate serve efficiency and consistency
+### Core Columns
+- `video_name`: Original video filename
+- `server_name`: Name of the serving player
+- `server_gender`: Gender of server (M/F)
+- `player1`, `player2`: Match participants
+- `PointServer`: Server identifier (1 or 2)
+- `n_frames`: Number of frames in the serve sequence
 
-### 👥 Gender Classification (`code/src/gender/`)
-- **Machine Learning Models**: Gender classification from serve motion
-- **Feature Engineering**: Extract relevant features from 3D keypoints
-- **Comparative Analysis**: Compare male vs female serve characteristics
-- **Visualization**: Plot gender-specific serve patterns
+### Keypoint Data
+- `keypoints_clean`: 3D coordinates array (n_frames × 17 × 3)
+- `keypoint_scores_clean`: Confidence scores array (n_frames × 17)
 
-### 📊 Data Processing (`code/src/json_investigation/`)
-- **JSON Restructuring**: Clean and format keypoint data
-- **Data Integration**: Merge multiple data sources
-- **Quality Control**: Validate and verify data integrity
-- **Metadata Addition**: Add server information and match details
+### Match Context
+- `tournament`: Tournament name
+- `round`: Match round
+- `court`: Court information
+- `date`: Match date
 
-### 🔧 Logistics (`code/src/logistics/`)
-- **Data Integration**: Merge different data sources
-- **Sequence Timing**: Analyze serve timing patterns
-- **Data Validation**: Ensure data quality and consistency
-
-### 🎾 Server Analysis (`code/src/server/`)
-- **Player Comparison**: Compare different players' serve styles
-- **Unsupervised Analysis**: Discover serve patterns and clusters
-- **Performance Metrics**: Analyze serve effectiveness
-
-### ⚡ Speed Analysis (`code/src/speed/`)
-- **Serve Speed Calculation**: Compute serve velocities
-- **Speed Pattern Analysis**: Analyze speed variations
-- **Performance Correlation**: Correlate speed with other metrics
-
-## 📓 Jupyter Notebooks
-
-Explore the `code/notebooks/` directory for:
-- **EDA**: Exploratory data analysis
-- **Annotation Matching**: Data quality analysis
-- **Visualization Examples**: Ready-to-use plotting code
-
-## 🤖 OpenAI Integration
-
-Advanced analysis tools in `code/openai/`:
-- **Batch Processing**: Automated analysis workflows
-- **Image Processing**: Scorebug detection and analysis
-- **Data Management**: Large-scale data processing utilities
+For complete column descriptions, see [data_dictionary.md](documentation/data_dictionary.md).
 
 ## 📊 Sample Analysis Results
 
-### Dataset Statistics
-- **Mean Serve Length**: 81.2 frames per serve
-- **Frame Range**: 60-120 frames
-- **Gender Distribution**: 54.7% Male, 45.3% Female
+### Serve Length Distribution
+- **Mean**: 81.2 frames per serve
+- **Range**: 60-120 frames
+- **Most Common**: 90 frames (468 serves)
+
+### Gender Analysis
+- **Male Players**: 60 players, 3,659 serves (54.7%)
+- **Female Players**: 58 players, 3,035 serves (45.3%)
 
 ### Top Players by Serve Count
 1. **Jannik Sinner**: 224 serves
@@ -183,85 +145,38 @@ Advanced analysis tools in `code/openai/`:
 4. **Aryna Sabalenka**: 194 serves
 5. **Jessica Pegula**: 169 serves
 
-## 🔬 Research Applications
-
-### Dataset Uses
-- **Biomechanics Research**: Serve motion analysis
-- **Machine Learning**: Gender classification, serve prediction
-- **Sports Analytics**: Performance benchmarking
-- **Computer Vision**: 3D pose estimation validation
-
-### Toolkit Applications
-- **Coaching**: Biomechanical analysis and feedback
-- **Research**: Automated analysis pipelines
-- **Development**: Extensible framework for new analyses
-- **Education**: Teaching sports analytics and biomechanics
-
-## 📋 Requirements
-
-```bash
-pip install -r requirements.txt
-```
-
-## 🛠️ Development
-
-### Setup Development Environment
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/tennis-serve-analysis.git
-cd tennis-serve-analysis
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Setup and verify dataset
-python setup_dataset.py
-```
-
-### Running Analysis
-```bash
-# Set up dataset
-python setup_dataset.py
-
-# Run example analysis
-cd code/src
-python -m coaching.calculate_angles
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📝 Citation
 
-If you use this dataset or toolkit in your research, please cite:
+If you use this dataset in your research, please cite:
 
 ```bibtex
 @dataset{tennis_serve_analysis_2024,
-  title={Tennis Serve Analysis: Dataset and Toolkit for 3D Keypoint Tracking},
-  author={Your Name},
+  title={Tennis Serve Analysis Dataset: 3D Keypoint Tracking from US Open 2024},
+  author={Wang, Jason},
   year={2024},
-  url={https://github.com/yourusername/tennis-serve-analysis}
+  url={https://github.com/jasonwang/tennis_serve_dataset}
 }
 ```
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This dataset is licensed under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+We welcome contributions to improve the dataset documentation and analysis! Please feel free to:
+
+- Report data quality issues
+- Suggest additional documentation
+- Share analysis results
+- Propose dataset improvements
 
 ## 📞 Contact
 
-For questions, collaboration opportunities, or support:
-- Open an issue on GitHub
-- Email: [your-email@domain.com]
+For questions about the dataset or collaboration opportunities, please open an issue on GitHub.
 
 ---
 
-**Last Updated**: July 2024  
-**Version**: 1.0  
-**Dataset Size**: ~1.3GB  
-**Python Version**: 3.8+ 
+**Dataset Version**: 1.0  
+**Last Updated**: January 2025  
+**Total Size**: ~1.3GB 
