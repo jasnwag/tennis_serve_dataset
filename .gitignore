@@ -1,13 +1,51 @@
-# Tennis Serve Analysis Dataset .gitignore
+# Dataset-specific ignores
+*.csv
+*.json
+*.parquet
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
 
-# Exclude entire data directory (contains large datasets)
-data/
+# Large data files
+data/raw/
+data/processed/
+data/models/
+data/outputs/
 
-# Python
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.out
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -24,63 +62,84 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Environment variables
-.env
-.venv
-env/
+# Virtual environments
 venv/
+env/
 ENV/
 env.bak/
 venv.bak/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Backup files
+*.bak
+*.backup
+*.old
 
-# Logs
-*.log
-logs/
-
-# Temporary files
-*.tmp
-*.temp
-temp/
-tmp/
-
-# Large media files
+# Large media files (if any)
 *.mp4
 *.avi
 *.mov
 *.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.3gp
+*.ogv
 
-# Model files
-*.h5
-*.hdf5
-*.pkl
-*.pickle
+# Audio files
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.wma
 
-# API keys and secrets
-config.json
-secrets.json
-*.key
+# Archive files
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.bz2
 
-# Data processing artifacts
-*.npy
-*.npz 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+
+# Documentation builds
+docs/_build/
+site/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/ 
