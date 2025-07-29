@@ -2,6 +2,26 @@
 
 A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
 
+## 🎬 Visual Overview
+
+### Gender-Based Motion Clustering
+<div align="center">
+  <img src="gender.gif" alt="3D visualization showing distinct clustering patterns between male and female tennis players in motion space" width="600"/>
+  <p><em>3D motion space visualization revealing distinct separation patterns between male and female serve biomechanics</em></p>
+</div>
+
+### Player-Specific Serve Signatures  
+<div align="center">
+  <img src="server.gif" alt="3D clustering visualization showing how different tennis players form distinct clusters in motion space" width="600"/>
+  <p><em>Individual player clustering in 3D motion space - each player develops unique biomechanical signatures</em></p>
+</div>
+
+### Comparative Skeletal Motion Analysis
+<div align="center">
+  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
+  <p><em>Real-time skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
+</div>
+
 ## 🎾 Dataset Overview
 
 This dataset contains **6,694 tennis serves** from the 2024 US Open tournament, featuring:
