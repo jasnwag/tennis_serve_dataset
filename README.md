@@ -6,6 +6,9 @@ A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D key
 
 ## 🎬 Visual Overview
 
+*Note: Optimized visualization GIFs will be added shortly - file size optimization in progress*
+
+<!-- Visualizations temporarily removed for file size optimization
 ### Gender-Based Motion Clustering
 <div align="center">
   <img src="gender.gif" alt="3D visualization showing distinct clustering patterns between male and female tennis players in motion space" width="600"/>
@@ -20,9 +23,10 @@ A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D key
 
 ### Comparative Skeletal Motion Analysis
 <div align="center">
-  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
+  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two players during serve execution" width="600"/>
   <p><em>Real-time skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
 </div>
+-->
 
 ## 🎾 Dataset Overview
 
