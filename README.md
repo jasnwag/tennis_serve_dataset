@@ -2,11 +2,17 @@
 
 ![Tennis Serve Analysis Demo](bounding_grid_8x3.gif)
 
+### Comparative Skeletal Motion Analysis
+<div align="center">
+  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
+  <p><em>Real-time skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
+</div>
+
 A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
 
-## �� Visual Overview
+## 🎬 Additional Visualizations
 
-*High-quality 3D visualizations optimized for fast web loading (16MB, 15MB, 3.9MB)*
+*High-quality 3D visualizations optimized for fast web loading (16MB, 15MB)*
 
 ### Gender-Based Motion Clustering
 <div align="center">
@@ -18,12 +24,6 @@ A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D key
 <div align="center">
   <img src="server.gif" alt="3D clustering visualization showing how different tennis players form distinct clusters in motion space" width="600"/>
   <p><em>Individual player clustering in 3D motion space - each player develops unique biomechanical signatures</em></p>
-</div>
-
-### Comparative Skeletal Motion Analysis
-<div align="center">
-  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
-  <p><em>Real-time skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
 </div>
 
 ## 🎾 Dataset Overview
