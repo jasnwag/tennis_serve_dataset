@@ -177,7 +177,7 @@ If you use this dataset in your research, please cite:
   title={Tennis Serve Analysis Dataset: 3D Keypoint Tracking from US Open 2024},
   author={Tennis Analytics Research Team},
   year={2024},
-  url={https://github.com/jasnwag/tennis_serve_dataset}
+  url={https://github.com/jasonwang/tennis_serve_dataset}
 }
 ```
 
