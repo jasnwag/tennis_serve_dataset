@@ -5,14 +5,13 @@
 ### Comparative Skeletal Motion Analysis
 <div align="center">
   <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
-  <p><em>Real-time skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
+  <p><em>Skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
 </div>
 
 A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
 
-## 🎬 Additional Visualizations
+## 🎬 Additional Dimensionaltiy Reduction Visualizations 
 
-*High-quality 3D visualizations optimized for fast web loading (16MB, 15MB)*
 
 ### Gender-Based Motion Clustering
 <div align="center">
@@ -41,7 +40,7 @@ This dataset contains **6,694 tennis serves** from the 2024 US Open tournament, 
 - **Unique Players**: 118 (60 male, 58 female)
 - **Matches**: 118 different tennis matches
 - **Frame Range**: 60-120 frames per serve (mean: 81.2 frames)
-- **Data Format**: CSV with embedded JSON keypoint arrays
+- **Data Format**: CSV with embedded JSON keypoint arrays *Work in Progress
 - **Dataset Size**: ~1.3GB
 
 ## 🗂️ Repository Structure
@@ -68,7 +67,7 @@ tennis_serve_dataset/
 
 The main dataset file is located at:
 ```
-data/processed/usopen_points_clean_keypoints_cleaned_with_server_gender.csv
+data/processed/data.csv
 ```
 
 ### Quick Start Example
@@ -79,7 +78,7 @@ import numpy as np
 import json
 
 # Load the dataset
-df = pd.read_csv('data/processed/usopen_points_clean_keypoints_cleaned_with_server_gender.csv')
+df = pd.read_csv('data/processed/data.csv')
 
 # Basic statistics
 print(f"Total serves: {len(df)}")
