@@ -14,6 +14,8 @@ data/raw/
 data/processed/
 data/models/
 data/outputs/
+data/us_open_data/*.csv
+data/us_open_data/tennis_serves_dataset/
 
 # Temporary files
 *.tmp
