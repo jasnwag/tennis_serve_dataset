@@ -1,10 +1,10 @@
 # Tennis Serve Analysis Dataset
 
-![Tennis Serve Analysis Demo](bounding_grid_8x3.gif)
+![Tennis Serve Analysis Demo](assets/bounding_grid_8x3.gif)
 
 ### Comparative Skeletal Motion Analysis
 <div align="center">
-  <img src="skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
+  <img src="assets/skeleton.gif" alt="Side-by-side comparison of skeletal motion between two tennis players during serve execution" width="600"/>
   <p><em>Skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
 </div>
 
@@ -15,19 +15,19 @@ A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D key
 
 ### Gender-Based Motion Clustering
 <div align="center">
-  <img src="gender.gif" alt="3D visualization showing distinct clustering patterns between male and female tennis players in motion space" width="600"/>
+  <img src="assets/gender.gif" alt="3D visualization showing distinct clustering patterns between male and female tennis players in motion space" width="600"/>
   <p><em>3D motion space visualization revealing distinct separation patterns between male and female serve biomechanics</em></p>
 </div>
 
 ### Player-Specific Serve Signatures  
 <div align="center">
-  <img src="server.gif" alt="3D clustering visualization showing how different tennis players form distinct clusters in motion space" width="600"/>
+  <img src="assets/server.gif" alt="3D clustering visualization showing how different tennis players form distinct clusters in motion space" width="600"/>
   <p><em>Individual player clustering in 3D motion space - each player develops unique biomechanical signatures</em></p>
 </div>
 
 ## 🎾 Dataset Overview
 
-This dataset contains **6,694 tennis serves** from the 2024 US Open tournament, featuring:
+This dataset contains **6,370 tennis serves** from the 2024 US Open tournament, featuring:
 
 - **3D Keypoint Tracking**: 17 joints per frame with full body motion capture
 - **Player Demographics**: 118 unique players (60 male, 58 female)
@@ -36,28 +36,26 @@ This dataset contains **6,694 tennis serves** from the 2024 US Open tournament, 
 
 ## 📊 Quick Stats
 
-- **Total Serves**: 6,694
+- **Total Serves**: 6,370
 - **Unique Players**: 118 (60 male, 58 female)
 - **Matches**: 118 different tennis matches
 - **Frame Range**: 60-120 frames per serve (mean: 81.2 frames)
-- **Data Format**: CSV with embedded JSON keypoint arrays *Work in Progress
-- **Dataset Size**: ~1.3GB
+- **Data Format**: CSV with embedded JSON keypoint arrays
+- **Dataset Size**: ~849MB (full dataset available via Google Drive)
 
 ## 🗂️ Repository Structure
 
 ```
 tennis_serve_dataset/
+├── assets/                     # Visualization GIFs and images
+│   ├── bounding_grid_8x3.gif
+│   ├── skeleton.gif
+│   ├── gender.gif
+│   └── server.gif
 ├── data/
-│   ├── raw/                    # Original data files
-│   ├── processed/              # Cleaned and processed data
-│   ├── models/                 # Pre-trained models (if any)
-│   └── outputs/                # Analysis outputs and visualizations
-├── documentation/
-│   ├── data_dictionary.md      # Complete column descriptions
-│   ├── keypoint_mapping.md     # 17 joint definitions and mapping
-│   └── analysis_examples.md    # Usage examples and sample code
-├── DATASET_README.md           # Detailed dataset documentation
-├── LICENSE                     # MIT License
+│   └── us_open_data/           # Dataset files
+│       └── 2024-usopen-final-filtered-cleaned-lite.csv
+├── code/                       # Analysis code and experiments
 └── README.md                   # This file
 ```
 
@@ -65,10 +63,20 @@ tennis_serve_dataset/
 
 ### Download the Dataset
 
-The main dataset file is located at:
+**Option 1: Full Dataset (Recommended)**
+📁 **[Download Complete Dataset from Google Drive](https://drive.google.com/your-link-here)** (~849MB)
+
+The full dataset includes all biomechanical features:
+- 3D keypoints for each serve
+- Joint angles and angular velocities
+- Complete statistical data
+
+**Option 2: Lite Version (GitHub)**
+The repository contains a cleaned version with essential data:
 ```
-data/processed/data.csv
+data/us_open_data/2024-usopen-final-filtered-cleaned-lite.csv
 ```
+*Note: This version has empty columns removed but still contains all keypoint data*
 
 ### Quick Start Example
 
@@ -78,17 +86,18 @@ import numpy as np
 import json
 
 # Load the dataset
-df = pd.read_csv('data/processed/data.csv')
+df = pd.read_csv('data/us_open_data/2024-usopen-final-filtered-cleaned-lite.csv')
 
 # Basic statistics
 print(f"Total serves: {len(df)}")
-print(f"Unique players: {df['server_name'].nunique()}")
-print(f"Gender distribution:\n{df['server_gender'].value_counts()}")
+print(f"Unique players: {df['server'].nunique()}")
+print(f"Player examples: {df['server'].value_counts().head()}")
 
-# Load keypoints for analysis
-keypoints = json.loads(df.iloc[0]['keypoints_clean'])
-print(f"Keypoints shape: {np.array(keypoints).shape}")
-# Output: (n_frames, 17, 3) - frames × joints × coordinates
+# Load keypoints for analysis (if available)
+if 'keypoints' in df.columns:
+    keypoints = json.loads(df.iloc[0]['keypoints'])
+    print(f"Keypoints shape: {np.array(keypoints).shape}")
+    # Output: (n_frames, 17, 3) - frames × joints × coordinates
 ```
 
 ## 📈 Key Features
@@ -131,24 +140,25 @@ print(f"Keypoints shape: {np.array(keypoints).shape}")
 ## 📋 Data Dictionary
 
 ### Core Columns
-- `video_name`: Original video filename
-- `server_name`: Name of the serving player
-- `server_gender`: Gender of server (M/F)
+- `match_id`: Unique match identifier
+- `server`: Name of the serving player
 - `player1`, `player2`: Match participants
 - `PointServer`: Server identifier (1 or 2)
 - `n_frames`: Number of frames in the serve sequence
+- `Speed_KMH`: Serve speed in kilometers per hour
 
 ### Keypoint Data
-- `keypoints_clean`: 3D coordinates array (n_frames × 17 × 3)
-- `keypoint_scores_clean`: Confidence scores array (n_frames × 17)
+- `keypoints`: 3D coordinates array (n_frames × 17 × 3)
+- Joint angle data: Left/right angles for elbows, shoulders, hips, knees
+- Angular velocity and acceleration data for all joints
 
 ### Match Context
-- `tournament`: Tournament name
-- `round`: Match round
-- `court`: Court information
-- `date`: Match date
+- `ElapsedTime`: Time in match
+- `SetNo`, `GameNo`, `PointNumber`: Match progression
+- `P1Score`, `P2Score`: Point scores
+- `match_num`: Match number in tournament
 
-For complete column descriptions, see [data_dictionary.md](documentation/data_dictionary.md).
+*Note: Empty columns (court info, player IDs, etc.) have been removed from the lite version*
 
 ## 📊 Sample Analysis Results
 
@@ -200,6 +210,7 @@ For questions about the dataset or collaboration opportunities, please open an i
 
 ---
 
-**Dataset Version**: 1.0  
-**Last Updated**: January 2025  
-**Total Size**: ~1.3GB 
+**Dataset Version**: 1.1  
+**Last Updated**: September 2025  
+**Repository Size**: ~37MB (assets) + ~849MB (lite dataset)  
+**Full Dataset Size**: ~849MB (available via Google Drive) 
