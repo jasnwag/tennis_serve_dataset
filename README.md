@@ -1,6 +1,13 @@
 # Tennis Serve Analysis Dataset
 
-![Tennis Serve Analysis Demo](assets/bounding_grid_8x3.gif)
+**Characterizing Professional Tennis Serves through 3D Pose Estimation and Biomechanical Feature Analysis**
+
+*Jason Wang, Qingyao Zheng, Wenxi Zeng, Aidong Zhang*
+*University of Virginia*
+
+---
+
+![Tennis Serve Analysis](assets/bounding_grid_8x3.gif)
 
 ### Comparative Skeletal Motion Analysis
 <div align="center">
@@ -8,209 +15,159 @@
   <p><em>Skeletal motion comparison between two players showcasing biomechanical differences in serve technique</em></p>
 </div>
 
-A comprehensive dataset of tennis serves from the 2024 US Open, featuring 3D keypoint tracking, serve analysis, and gender classification data.
+### Dimensionality Reduction Visualizations
 
-## 🎬 Additional Dimensionaltiy Reduction Visualizations 
-
-
-### Gender-Based Motion Clustering
+#### Gender-Based Motion Clustering
 <div align="center">
   <img src="assets/gender.gif" alt="3D visualization showing distinct clustering patterns between male and female tennis players in motion space" width="600"/>
   <p><em>3D motion space visualization revealing distinct separation patterns between male and female serve biomechanics</em></p>
 </div>
 
-### Player-Specific Serve Signatures  
+#### Player-Specific Serve Signatures
 <div align="center">
   <img src="assets/server.gif" alt="3D clustering visualization showing how different tennis players form distinct clusters in motion space" width="600"/>
-  <p><em>Individual player clustering in 3D motion space - each player develops unique biomechanical signatures</em></p>
+  <p><em>Individual player clustering in 3D motion space — each player develops unique biomechanical signatures</em></p>
 </div>
 
-## 🎾 Dataset Overview
+---
 
-This dataset contains **6,370 tennis serves** from the 2024 US Open tournament, featuring:
+## Overview
 
-- **3D Keypoint Tracking**: 17 joints per frame with full body motion capture
-- **Player Demographics**: 118 unique players (60 male, 58 female)
-- **Serve Analytics**: Speed, direction, outcome, and match context
-- **High-Quality Data**: Professional tournament footage with expert annotation
+This dataset contains **5,966 tennis serves** from the **2024 US Open**, spanning **109 unique players** across **113 matches**. Each serve includes 3D pose sequences, derived biomechanical features (joint angles, angular velocities, angular accelerations), and rich match metadata.
 
-## 📊 Quick Stats
+The dataset was constructed using a fully automated pipeline — no manual annotation required — making it scalable to any broadcast tennis footage.
 
-- **Total Serves**: 6,370
-- **Unique Players**: 118 (60 male, 58 female)
-- **Matches**: 118 different tennis matches
-- **Frame Range**: 60-120 frames per serve (mean: 81.2 frames)
-- **Data Format**: CSV with embedded JSON keypoint arrays
-- **Dataset Size**: ~849MB (full dataset available via Google Drive)
+## Pipeline
 
-## 🗂️ Repository Structure
+Serves are extracted from broadcast video through a four-stage pipeline:
+
+1. **Detection** — RTMDet localizes the serving player in each frame
+2. **2D Pose Estimation** — RTMPose extracts 17-joint 2D keypoints (COCO format)
+3. **3D Lifting** — MotionBERT lifts 2D poses to 3D coordinates
+4. **Temporal Alignment** — Dynamic Time Warping (DTW) aligns variable-length sequences to a canonical serve template
+
+The pipeline produces fixed-length 3D pose sequences and derived biomechanical features for each serve.
+
+## Dataset Statistics
+
+| Statistic | Value |
+|---|---|
+| Total serves | 5,966 |
+| Unique players | 109 |
+| Matches | 113 |
+| Tournament | 2024 US Open |
+| Joints per frame | 17 (COCO format) |
+| Sequence length | Fixed after DTW alignment |
+| Male players | 56 |
+| Female players | 53 |
+
+## Data Structure
+
+The dataset is hosted on Google Drive. After downloading, the directory contains:
 
 ```
 tennis_serve_dataset/
-├── assets/                     # Visualization GIFs and images
-│   ├── bounding_grid_8x3.gif
-│   ├── skeleton.gif
-│   ├── gender.gif
-│   └── server.gif
-├── data/
-│   └── us_open_data/           # Dataset files
-│       └── 2024-usopen-final-filtered-cleaned-lite.csv
-├── code/                       # Analysis code and experiments
-└── README.md                   # This file
+├── keypoints/                  # 3D pose sequences — shape (T, 17, 3)
+├── joint_angles/               # Joint angle time series — shape (T, 8)
+├── angular_velocities/         # Angular velocity time series — shape (T, 8)
+├── angular_accelerations/      # Angular acceleration time series — shape (T, 8)
+└── metadata.parquet            # Serve-level metadata (5,966 rows × 20 columns)
 ```
 
-## 🚀 Getting Started
+### Biomechanical Features
 
-### Download the Dataset
+The 8 joint angles (and their corresponding velocities/accelerations) are:
 
-**Option 1: Full Dataset (Recommended)**
-📁 **[Download Complete Dataset from Google Drive](https://drive.google.com/your-link-here)** (~849MB)
+| Index | Joint |
+|---|---|
+| 0 | Left elbow |
+| 1 | Right elbow |
+| 2 | Left shoulder |
+| 3 | Right shoulder |
+| 4 | Left hip |
+| 5 | Right hip |
+| 6 | Left knee |
+| 7 | Right knee |
 
-The full dataset includes all biomechanical features:
-- 3D keypoints for each serve
-- Joint angles and angular velocities
-- Complete statistical data
+### Metadata Columns
 
-**Option 2: Lite Version (GitHub)**
-The repository contains a cleaned version with essential data:
-```
-data/us_open_data/2024-usopen-final-filtered-cleaned-lite.csv
-```
-*Note: This version has empty columns removed but still contains all keypoint data*
+| Column | Description |
+|---|---|
+| `match_id` | Unique match identifier |
+| `server` | Name of the serving player |
+| `server_gender` | Gender of server (`M` / `F`) |
+| `player1`, `player2` | Match participants |
+| `PointServer` | Which player served (1 or 2) |
+| `Speed_KMH` | Serve speed in km/h |
+| `n_frames` | Number of frames before alignment |
+| `SetNo` | Set number |
+| `GameNo` | Game number |
+| `PointNumber` | Point number |
+| `P1Score`, `P2Score` | Point scores |
+| `ServeNumber` | First or second serve |
+| `ServeResult` | Outcome (Ace, In, Fault, etc.) |
+| `match_num` | Match number in tournament |
+| `round` | Tournament round |
+| `ElapsedTime` | Time elapsed in match |
 
-### Quick Start Example
+## Key Results
+
+### Classification Tasks
+
+| Task | Accuracy | Macro F1 | Majority Baseline | Lift |
+|---|---|---|---|---|
+| Gender | 97.3% | 0.972 | 55.0% | +42.3% |
+| Player ID (top 14) | 99.2% | 0.992 | 10.6% | +88.6% |
+| Serve quality | 84.0% | 0.757 | 65.0% | +19.1% |
+
+### Speed Prediction (Regression)
+
+| Metric | Value |
+|---|---|
+| R² | 0.253 |
+| MAE | 17.2 km/h |
+| RMSE | 20.8 km/h |
+
+## Quick Start
 
 ```python
 import pandas as pd
 import numpy as np
-import json
 
-# Load the dataset
-df = pd.read_csv('data/us_open_data/2024-usopen-final-filtered-cleaned-lite.csv')
+# Load metadata
+metadata = pd.read_parquet("metadata.parquet")
+print(f"Total serves: {len(metadata)}")
+print(f"Unique players: {metadata['server'].nunique()}")
 
-# Basic statistics
-print(f"Total serves: {len(df)}")
-print(f"Unique players: {df['server'].nunique()}")
-print(f"Player examples: {df['server'].value_counts().head()}")
+# Load a single serve's 3D keypoints
+keypoints = np.load("keypoints/0.npy")   # shape: (T, 17, 3)
+angles = np.load("joint_angles/0.npy")   # shape: (T, 8)
 
-# Load keypoints for analysis (if available)
-if 'keypoints' in df.columns:
-    keypoints = json.loads(df.iloc[0]['keypoints'])
-    print(f"Keypoints shape: {np.array(keypoints).shape}")
-    # Output: (n_frames, 17, 3) - frames × joints × coordinates
+print(f"Sequence length: {keypoints.shape[0]} frames")
+print(f"Joints: {keypoints.shape[1]}, Coordinates: {keypoints.shape[2]}")
 ```
 
-## 📈 Key Features
+## Download
 
-### 🎯 Serve Data
-- **Player Information**: Server name, gender, match details
-- **Serve Metrics**: Speed, direction, outcome
-- **Match Context**: Tournament round, court, date
-- **Point Details**: Score, game state, rally length
+The full dataset is available on Google Drive:
 
-### 🦴 3D Keypoint Tracking
-- **17 Joints**: Full body tracking including arms, legs, torso
-- **3D Coordinates**: X, Y, Z positions for each joint
-- **Confidence Scores**: Reliability metrics for each keypoint
-- **Frame-by-Frame**: Complete serve motion capture
+[Download Tennis Serve Dataset](https://drive.google.com/drive/folders/1N3voJBMFHqMBPK1MsqOFBfsHnxTH94rV?usp=sharing)
 
-### 👥 Player Demographics
-- **Gender Distribution**: 54.7% Male, 45.3% Female
-- **Player Diversity**: 118 unique players
-- **Top Players**: Sinner (224 serves), Tiafoe (221 serves), Sabalenka (194 serves)
-
-## 🔬 Research Applications
-
-### Biomechanics
-- Serve motion analysis and optimization
-- Joint angle calculations and biomechanical modeling
-- Performance comparison across players and genders
-
-### Machine Learning
-- Gender classification from motion patterns
-- Serve outcome prediction
-- Player identification and verification
-- Motion synthesis and generation
-
-### Sports Analytics
-- Serve effectiveness analysis
-- Player comparison studies
-- Performance benchmarking and ranking
-
-## 📋 Data Dictionary
-
-### Core Columns
-- `match_id`: Unique match identifier
-- `server`: Name of the serving player
-- `player1`, `player2`: Match participants
-- `PointServer`: Server identifier (1 or 2)
-- `n_frames`: Number of frames in the serve sequence
-- `Speed_KMH`: Serve speed in kilometers per hour
-
-### Keypoint Data
-- `keypoints`: 3D coordinates array (n_frames × 17 × 3)
-- Joint angle data: Left/right angles for elbows, shoulders, hips, knees
-- Angular velocity and acceleration data for all joints
-
-### Match Context
-- `ElapsedTime`: Time in match
-- `SetNo`, `GameNo`, `PointNumber`: Match progression
-- `P1Score`, `P2Score`: Point scores
-- `match_num`: Match number in tournament
-
-*Note: Empty columns (court info, player IDs, etc.) have been removed from the lite version*
-
-## 📊 Sample Analysis Results
-
-### Serve Length Distribution
-- **Mean**: 81.2 frames per serve
-- **Range**: 60-120 frames
-- **Most Common**: 90 frames (468 serves)
-
-### Gender Analysis
-- **Male Players**: 60 players, 3,659 serves (54.7%)
-- **Female Players**: 58 players, 3,035 serves (45.3%)
-
-### Top Players by Serve Count
-1. **Jannik Sinner**: 224 serves
-2. **Frances Tiafoe**: 221 serves  
-3. **Taylor Fritz**: 214 serves
-4. **Aryna Sabalenka**: 194 serves
-5. **Jessica Pegula**: 169 serves
-
-## 📝 Citation
+## Citation
 
 If you use this dataset in your research, please cite:
 
 ```bibtex
-@dataset{tennis_serve_analysis_2024,
-  title={Tennis Serve Analysis Dataset: 3D Keypoint Tracking from US Open 2024},
-  author={Tennis Analytics Research Team},
-  year={2024},
-  url={https://github.com/jasonwang/tennis_serve_dataset}
+@inproceedings{wang2026characterizing,
+  title={Characterizing Professional Tennis Serves through 3D Pose Estimation and Biomechanical Feature Analysis},
+  author={Wang, Jason and Zheng, Qingyao and Zeng, Wenxi and Zhang, Aidong},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  year={2026}
 }
 ```
 
-## 📄 License
+## License
 
-This dataset is licensed under the [MIT License](LICENSE).
+This dataset is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](LICENSE).
 
-## 🤝 Contributing
-
-We welcome contributions to improve the dataset documentation and analysis! Please feel free to:
-
-- Report data quality issues
-- Suggest additional documentation
-- Share analysis results
-- Propose dataset improvements
-
-## 📞 Contact
-
-For questions about the dataset or collaboration opportunities, please open an issue on GitHub.
-
----
-
-**Dataset Version**: 1.1  
-**Last Updated**: September 2025  
-**Repository Size**: ~37MB (assets) + ~849MB (lite dataset)  
-**Full Dataset Size**: ~849MB (available via Google Drive) 
+You are free to share and adapt the material for any purpose, provided you give appropriate credit.
