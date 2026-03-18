@@ -1,8 +1,8 @@
 # Tennis Serve Analysis Dataset
 
-**Characterizing Professional Tennis Serves through 3D Pose Estimation and Biomechanical Feature Analysis**
+**Large-Scale 3D Pose Estimation of Professional Tennis Serves from Broadcast Video**
 
-*Jason Wang, Qingyao Zheng, Wenxi Zeng, Aidong Zhang*
+*Jason Wang, Robert Chen, Patrick Ho, Emmy Kim, Samuel Min, Jaden Shim, Vrishak Vemuri, Derek Wang, Natalie Kupperman, Stephen Baek*
 *University of Virginia*
 
 ---
@@ -151,16 +151,16 @@ print(f"Joints: {keypoints.shape[1]}, Coordinates: {keypoints.shape[2]}")
 
 The full dataset is available on Google Drive:
 
-[Download Tennis Serve Dataset](https://drive.google.com/drive/folders/1N3voJBMFHqMBPK1MsqOFBfsHnxTH94rV?usp=sharing)
+[Download Tennis Serve Dataset](https://drive.google.com/drive/folders/1Wr7UjMvgLwgqCQ09wSaw94ozvRYRO8fB?usp=share_link)
 
 ## Citation
 
 If you use this dataset in your research, please cite:
 
 ```bibtex
-@inproceedings{wang2026characterizing,
-  title={Characterizing Professional Tennis Serves through 3D Pose Estimation and Biomechanical Feature Analysis},
-  author={Wang, Jason and Zheng, Qingyao and Zeng, Wenxi and Zhang, Aidong},
+@inproceedings{wang2026largescale,
+  title={Large-Scale 3D Pose Estimation of Professional Tennis Serves from Broadcast Video},
+  author={Wang, Jason and Chen, Robert and Ho, Patrick and Kim, Emmy and Min, Samuel and Shim, Jaden and Vemuri, Vrishak and Wang, Derek and Kupperman, Natalie and Baek, Stephen},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
   year={2026}
 }
